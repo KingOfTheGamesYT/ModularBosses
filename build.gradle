@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
         
@@ -15,14 +15,14 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.0.3'
-group = 'com.Splosions.ModularBosses' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.splosions.mb' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'mb'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
 
-    mappings channel: 'snapshot', version: '20171003-1.12'
+    mappings channel: 'stable', version: '39-1.12'
 
     runs {
         client {
@@ -47,7 +47,7 @@ minecraft {
 }
 
 dependencies {
-   minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
+   minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
 }
 
 

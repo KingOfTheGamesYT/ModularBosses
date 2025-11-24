@@ -1,15 +1,15 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
+  "modid": "mb",
+  "name": "Modular Bosses",
+  "description": "High Quality Epic Bosses",
+  "version": "1.0.2",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://www.curseforge.com/minecraft/mc-mods/modular-bosses",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
+  "authorList": ["Splosions below 1.12.2 and RedRoseWarrior1 1.12.2+"],
+  "credits": "Splosions for making this mod in 1.8",
+  "logoFile": "icon_black.png",
   "screenshots": [],
   "dependencies": []
 }
