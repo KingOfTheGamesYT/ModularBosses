@@ -3,6 +3,7 @@ package com.splosions.mb.proxy;
 import com.splosions.mb.MBSounds;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -16,6 +17,8 @@ public class CommonProxy {
 	public void registerItemRenderers(){};
 	
 	protected void registerEntityRenderers(){};
+
+    public void registerModel(Item item, int metadata) {}
 
 	public void init() {}
 
@@ -38,11 +41,6 @@ public class CommonProxy {
 	@SubscribeEvent
 	public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 		MBSounds.registerSounds(event);
-	}
-
-	public void init(FMLInitializationEvent event) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

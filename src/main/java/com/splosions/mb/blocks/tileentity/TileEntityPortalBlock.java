@@ -27,8 +27,8 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 	public float red = 0;
 	public float green = 0;
 	public float blue = 0;
-
 	public String message;
+
 	// gummby8 skin
 	// "minecraft:skins/2cce44e913e9726c4bb39458f1401f31ab7bf44a6921c86df9411227c8d1";
 	public ArrayList<String> playerSkins = new ArrayList<String>();
@@ -48,7 +48,6 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 			for (AbstractClientPlayer player : players) {
 				message = player.getLocationSkin().toString();
 				PacketDispatcher.sendToServer(new SetControlBlockMessagePacket(this));
-
 			}
 		}
 
@@ -71,7 +70,9 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 				green = getRandomNumberInRange(50, 255);
 				blue = getRandomNumberInRange(50, 255);
 
-				world.notifyBlockUpdate(pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 0);
+                if (this.blockType != null) {
+                    world.notifyBlockUpdate(pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 0);
+                }
 				try {
 					int num = (roomData.portalLandingList.size() > 1)? getRandomNumberInRange(0, roomData.portalLandingList.size() - 1) : 0;
 					String locRaw = roomData.portalLandingList.get(num);
@@ -91,21 +92,16 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 									playerSkins.get(playerNames.indexOf(player.getDisplayNameString())));
 							this.world.spawnEntity(teleBiped);
 							player.setPositionAndUpdate(pX + 0.5, pY + 1, pZ + 0.5);
-
 						}
 					}
 
 				} catch (Throwable e) {
 					System.out.println("Tried to teleport but no portal landings exist");
 					TargetUtils.tellPlayersInList(players, "Tried to teleport but no portal landings exist");
-
 				}
 				countDown = 10;
 			}
-
-
-		} 
-
+		}
 		ticksExisted++;
 	}
 
@@ -122,7 +118,6 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 		red = compound.getFloat("red");
 		green = compound.getFloat("green");
 		blue = compound.getFloat("blue");
-
 	}
 
 	@Override
@@ -143,7 +138,6 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 			playerNames.add(name);
 			playerSkins.add(resourceString);
 		}
-
 	}
 
 	@Override
@@ -159,7 +153,6 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		readFromNBT(packet.getNbtCompound());
-
 	}
 
 	private static int getRandomNumberInRange(int min, int max) {
@@ -169,5 +162,4 @@ public class TileEntityPortalBlock extends TileEntity implements ITickable {
 		Random r = new Random();
 		return r.nextInt((max - min) + 1) + min;
 	}
-
 }

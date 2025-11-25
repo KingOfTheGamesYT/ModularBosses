@@ -5,6 +5,8 @@ import com.splosions.mb.ModularBosses;
 import com.splosions.mb.Reference;
 import com.splosions.mb.blocks.BlockRotationData.Rotation;
 
+import com.splosions.mb.items.ModularBossesItems;
+import com.splosions.mb.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -14,6 +16,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -24,24 +28,24 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockWormTumor extends Block implements IVanillaRotation
+import java.util.Objects;
+
+public class BlockWormTumor extends Block implements IHasModel
 {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	
-	public BlockWormTumor() {
+	public BlockWormTumor(String name) {
         super(Material.BARRIER);
-        setRegistryName(Reference.MOD_ID, "worm_tumor");
-        setTranslationKey(Reference.MOD_ID + "." + "worm_tumor");
+        setRegistryName(name);
+        setTranslationKey(Reference.MOD_ID + "." + name);
 		setHardness(10.0F);
 		setHarvestLevel("pickaxe", 2);
 		setSoundType(SoundType.STONE);
 		setCreativeTab(ModularBosses.tabBlocks);
-	}
+        ModBlocks.BLOCKS.add(this);
+        ModularBossesItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
 
-	@Override
-	public Rotation getRotationPattern() {
-		return BlockRotationData.Rotation.PISTON_CONTAINER;
-	}
+    }
 
 	@Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing face, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
@@ -118,5 +122,10 @@ public class BlockWormTumor extends Block implements IVanillaRotation
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING);
+    }
+
+    @Override
+    public void registerModels() {
+        ModularBosses.proxy.registerModel(Item.getItemFromBlock(this), 0);
     }
 }

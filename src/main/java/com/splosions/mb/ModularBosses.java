@@ -56,26 +56,22 @@ public class ModularBosses {
         PacketDispatcher.preInit();
         Config.preInit(event);
         proxy.preInit();
+        RegistryHandler.registerTileEntities();
     }
 
     @EventHandler
-    public void Init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         //MBBossDimension.init();
         proxy.registerItemRenderers();
         proxy.init();
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+        MinecraftForge.EVENT_BUS.register(new MBEventHandler());
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         Config.postInit();
     }
-
-    @Mod.EventHandler
-    public void load(FMLInitializationEvent event) {
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-        MinecraftForge.EVENT_BUS.register(new MBEventHandler());
-    }
-
 
     public static CreativeTabs tabBlocks = new CreativeTabs("mb.blocks") {
 

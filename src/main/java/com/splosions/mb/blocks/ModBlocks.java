@@ -1,6 +1,8 @@
 package com.splosions.mb.blocks;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.splosions.mb.Reference;
@@ -21,89 +23,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModBlocks
 {
-	public static final Block INVISIBLE_BLOCK = new BlockInvisible();
-	public static final Block CONTROL_BLOCK = new BlockControlBlock();
-	public static final Block PORTAL_BLOCK = new BlockPortalBlock();//.setLightLevel(1)
-	public static final Block PORTAL_LANDING = new BlockPortalLanding();//.setLightLevel(1)
-	public static final Block DUNGEON_EXIT_PORTAL = new BlockReturnPortal();//.setLightLevel(1)
-	public static final Block PHASE_FIRE = new BlockPhaseFire();//.setLightLevel(0.3F)
-	public static final Block FORCE_FIELD_GENERATOR = new BlockForceFieldGen();
-	public static final Block FORCE_FIELD = new BlockForceFieldBlue();
-	public static final Block WORM_GUTS_1 = new BlockWormGuts();
-	public static final Block WORM_GUTS_2 = new BlockWormGuts2();
-	public static final Block WORM_TUMOR = new BlockWormTumor();//.setLightLevel(1)
+    public static final List<Block> BLOCKS = new ArrayList<Block>();
 
-	@Mod.EventBusSubscriber(modid = Reference.MOD_ID)
-	public static class RegistrationHandler {
-		public static final Set<ItemBlock> ITEM_BLOCKS = new HashSet<>();
+    public static final Block INVISIBLE_BLOCK = new BlockInvisible("invisible_block");
+	public static final Block CONTROL_BLOCK = new BlockControlBlock("control_block");
+	public static final Block PORTAL_BLOCK = new BlockPortalBlock("portal_block");//.setLightLevel(1)
+	public static final Block PORTAL_LANDING = new BlockPortalLanding("portal_landing");//.setLightLevel(1)
+	public static final Block DUNGEON_EXIT_PORTAL = new BlockReturnPortal("portal_return_block");//.setLightLevel(1)
+	public static final Block PHASE_FIRE = new BlockPhaseFire("phase_fire");//.setLightLevel(0.3F)
+	public static final Block FORCE_FIELD_GENERATOR = new BlockForceFieldGen("force_field_gen");
+	public static final Block FORCE_FIELD = new BlockForceFieldBlue("force_field_blue");
+	public static final Block WORM_GUTS_1 = new BlockWormGuts("worm_guts_1");
+	public static final Block WORM_GUTS_2 = new BlockWormGuts2("worm_guts_2");
+	public static final Block WORM_TUMOR = new BlockWormTumor("worm_tumor");//.setLightLevel(1)
 
-		@SubscribeEvent
-		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
-			final IForgeRegistry<Block> registry = event.getRegistry();
-
-			final Block[] blocks = {
-					CONTROL_BLOCK,
-					PORTAL_BLOCK,
-					PORTAL_LANDING,
-					FORCE_FIELD_GENERATOR,
-					FORCE_FIELD,
-					WORM_GUTS_1,
-					WORM_GUTS_2,
-					WORM_TUMOR,
-					PHASE_FIRE,
-					INVISIBLE_BLOCK,
-                    DUNGEON_EXIT_PORTAL
-				};
-			registry.registerAll(blocks);
-		}
-
-		@SubscribeEvent
-		public static void registerItemBlocks(final RegistryEvent.Register<Item> event) {
-            final ItemBlock[] items = {
-                    new ItemBlock(CONTROL_BLOCK),
-                    new ItemBlock(PORTAL_LANDING),
-                    new ItemBlock(PORTAL_BLOCK),
-                    new ItemBlock(FORCE_FIELD_GENERATOR),
-                    new ItemBlock(FORCE_FIELD),
-                    new ItemBlock(WORM_GUTS_1),
-                    new ItemBlock(WORM_GUTS_2),
-                    new ItemBlock(WORM_TUMOR),
-                    new ItemBlock(PHASE_FIRE),
-                    new ItemBlock(INVISIBLE_BLOCK),
-                    new ItemBlock(DUNGEON_EXIT_PORTAL)
-            };
-
-
-            final IForgeRegistry<Item> registry = event.getRegistry();
-
-			for (final ItemBlock item : items) {
-				final Block block = item.getBlock();
-				final ResourceLocation registryName = Preconditions.checkNotNull(block.getRegistryName(), "Block %s has null registry name", block);
-				registry.register(item.setRegistryName(registryName));
-				ITEM_BLOCKS.add(item);
-			}
-			registerTileEntities();
-		}
-	}
-
-	private static void registerTileEntities() {
-		registerTileEntity(TileEntityControlBlock.class, "tileEntityControlBlock");
-		registerTileEntity(TileEntityPortalBlock.class, "tileEntityPortalBlock");
-		registerTileEntity(TileEntityReturnPortalBlock.class, "tileEntityReturnPortalBlock");
-		registerTileEntity(TileEntityTempWormBlood.class, "tileEntityTempWormBlood");
-		registerTileEntity(TileEntityTempWormAcid.class, "tileEntityTempWormAcid");
-	}
-
-	private static void registerTileEntity(final Class<? extends TileEntity> tileEntityClass, final String name) {
-		GameRegistry.registerTileEntity(tileEntityClass, Reference.MOD_ID + ":" + name);
-	}
-	  
-	  @SideOnly(Side.CLIENT)
-	  @SubscribeEvent
-	  public static void registerModels(ModelRegistryEvent event) {
-	    //ModelLoader.setCustomModelResourceLocation(CONTROL_BLOCK_ITEM, 0, new ModelResourceLocation("mb:control_block", "inventory"));
-	  }
 }

@@ -1,17 +1,23 @@
 package com.splosions.mb.blocks;
 
+import java.util.Objects;
 import java.util.Random;
 
 import com.splosions.mb.ModularBosses;
+import com.splosions.mb.Reference;
 import com.splosions.mb.entity.MBExtendedEntityLivingBase;
 import com.splosions.mb.entity.MBExtendedPlayer;
 
+import com.splosions.mb.items.ModularBossesItems;
+import com.splosions.mb.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -20,20 +26,23 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockPhaseFire extends Block
+public class BlockPhaseFire extends Block implements IHasModel
 
 {
 	//world.scheduleBlockUpdate(wx, wy, wz, block, ticks);
 	
-	public BlockPhaseFire() {
+	public BlockPhaseFire(String name) {
         super(Material.BARRIER);
-        setRegistryName("phase_fire");
-        setTranslationKey("phase_fire");
+        setRegistryName(name);
+        setTranslationKey(Reference.MOD_ID + "." + name);
 		disableStats();
 		setBlockUnbreakable();
 		setCreativeTab(ModularBosses.tabBlocks);
 		this.setTickRandomly(true);
-	}
+        ModBlocks.BLOCKS.add(this);
+        ModularBossesItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
+
+    }
 
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
@@ -98,4 +107,9 @@ public class BlockPhaseFire extends Block
 	public boolean canPlaceBlockAt(World world, BlockPos pos) {
 		return world.isSideSolid(pos.down(), EnumFacing.UP);
 	}
+
+    @Override
+    public void registerModels() {
+        ModularBosses.proxy.registerModel(Item.getItemFromBlock(this), 0);
+    }
 }

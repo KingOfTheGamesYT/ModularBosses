@@ -4,16 +4,22 @@ import com.splosions.mb.client.render.items.*;
 import com.splosions.mb.items.ModularBossesItems;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy{
-	
 
-	
+
+    @Override
+    public void registerModel(Item item, int metadata) {
+        ModelLoader.setCustomModelResourceLocation(item, metadata, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+    }
 	
 	public static void sobelShader(){
 		try {
@@ -50,12 +56,5 @@ public class ClientProxy extends CommonProxy{
 		super.preInit();
 
 	}
-	
-    @Override
-    public void init(FMLInitializationEvent event) {
-        super.init(event);
-
-
-    }
 	
 }

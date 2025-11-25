@@ -1,10 +1,14 @@
 
 package com.splosions.mb.blocks;
 
+import java.util.Objects;
 import java.util.Random;
 
+import com.splosions.mb.ModularBosses;
 import com.splosions.mb.Reference;
 import com.splosions.mb.blocks.BlockRotationData.Rotation;
+import com.splosions.mb.items.ModularBossesItems;
+import com.splosions.mb.util.IHasModel;
 import com.splosions.mb.util.TargetUtils;
 
 import net.minecraft.block.Block;
@@ -16,6 +20,8 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockForceFieldBlue extends Block implements IVanillaRotation {
+public class BlockForceFieldBlue extends Block implements IHasModel {
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyInteger STATE = PropertyInteger.create("state", 0, 2);
@@ -33,15 +39,18 @@ public class BlockForceFieldBlue extends Block implements IVanillaRotation {
 	public static final int ON = 1;
 	public static final int OFF = 0;
 
-	public BlockForceFieldBlue() {
+	public BlockForceFieldBlue(String name) {
         super(Material.BARRIER);
-        setRegistryName(Reference.MOD_ID, "force_field_blue");
-        setTranslationKey(Reference.MOD_ID + "." + "force_field_blue");
+        setRegistryName(name);
+        setTranslationKey(Reference.MOD_ID + "." + name);
 		setHardness(-1.0F);
 		setHarvestLevel("pickaxe", 2);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(STATE, Integer.valueOf(ON)));
 		// setCreativeTab(MBCreativeTabs.tabBlocks);
-	}
+        ModBlocks.BLOCKS.add(this);
+        ModularBossesItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
+
+    }
 
     @Override
 	public boolean canDropFromExplosion(Explosion explosion) {
@@ -145,11 +154,6 @@ public class BlockForceFieldBlue extends Block implements IVanillaRotation {
 	}
 
 	@Override
-	public Rotation getRotationPattern() {
-		return BlockRotationData.Rotation.PISTON_CONTAINER;
-	}
-
-	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
 		EnumFacing face = EnumFacing.fromAngle(entity.rotationYaw);
 		world.setBlockState(pos, state.withProperty(FACING, face), 3);
@@ -207,5 +211,10 @@ public class BlockForceFieldBlue extends Block implements IVanillaRotation {
     public boolean isFullBlock(IBlockState state)
     {
         return false;
+    }
+
+    @Override
+    public void registerModels() {
+        ModularBosses.proxy.registerModel(Item.getItemFromBlock(this), 0);
     }
 }
