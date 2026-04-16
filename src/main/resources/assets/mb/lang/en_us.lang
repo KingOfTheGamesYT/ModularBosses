@@ -26,12 +26,12 @@ item.mb.itemBait.name=Bait
 item.mb.itemNote.name=Note
 
 
-tile.fluid.fluid_worm_saliva.name=Worm Saliva
-tile.fluid.fluid_worm_blood.name=Worm Blood
-tile.fluid.fluid_temp_worm_blood.name=Temporary Worm Blood
-tile.fluid.fluid_worm_acid.name=Worm Acid
-tile.fluid.fluid_temp_worm_acid.name=Temporary Worm Acid
-tile.fluid.gas_worm_gas.name=Worm gas
+tile.mb.fluid.fluid_worm_saliva.name=Worm Saliva
+tile.mb.fluid.fluid_worm_blood.name=Worm Blood
+tile.mb.fluid.fluid_temp_worm_blood.name=Temporary Worm Blood
+tile.mb.fluid.fluid_worm_acid.name=Worm Acid
+tile.mb.fluid.fluid_temp_worm_acid.name=Temporary Worm Acid
+tile.mb.fluid.gas_worm_gas.name=Worm gas
 
 
 tile.mb.control_block.name=Control Block

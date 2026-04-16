@@ -1,10 +1,10 @@
 package com.splosions.mb.blocks;
 
 import com.splosions.mb.ModularBosses;
-
 import com.splosions.mb.Reference;
 import com.splosions.mb.items.ModularBossesItems;
 import com.splosions.mb.util.IHasModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -26,7 +26,6 @@ public class BlockWormGuts extends Block implements IHasModel {
 			setCreativeTab(ModularBosses.tabBlocks);
             ModBlocks.BLOCKS.add(this);
             ModularBossesItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
-
     }
 	
 	@Override

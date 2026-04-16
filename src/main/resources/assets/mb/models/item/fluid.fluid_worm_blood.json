@@ -1,0 +1,6 @@
+{
+  "parent": "forge:item/fluid",
+  "textures": {
+    "fluid": "mb:blocks/fluid_worm_blood_still"
+  }
+}

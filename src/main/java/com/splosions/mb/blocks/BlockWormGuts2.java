@@ -4,6 +4,7 @@ import com.splosions.mb.ModularBosses;
 import com.splosions.mb.Reference;
 import com.splosions.mb.items.ModularBossesItems;
 import com.splosions.mb.util.IHasModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

@@ -25,8 +25,6 @@ import java.util.function.Function;
 
 public class ModFluids {
 
-
-
 	/**
 	 * The fluids registered by this mod. Includes fluids that were already registered by another mod.
 	 */
@@ -74,7 +72,7 @@ public class ModFluids {
 	 * @return The fluid and block
 	 */
 	private static <T extends Block & IFluidBlock> Fluid createFluid(final String name, final boolean hasFlowIcon, final Consumer<Fluid> fluidPropertyApplier, final Function<Fluid, T> blockFactory) {
-		final String texturePrefix = Reference.MOD_ID + ":" + "blocks/fluid_";
+		final String texturePrefix = Reference.MOD_ID + "." + "blocks/fluid_";
 
 		final ResourceLocation still = new ResourceLocation(texturePrefix + name + "_still");
 		final ResourceLocation flowing = hasFlowIcon ? new ResourceLocation(texturePrefix + name + "_flow") : still;
@@ -109,7 +107,7 @@ public class ModFluids {
 			for (final IFluidBlock fluidBlock : MOD_FLUID_BLOCKS) {
 				final Block block = (Block) fluidBlock;
 				block.setRegistryName(Reference.MOD_ID, "fluid." + fluidBlock.getFluid().getName());
-				block.setTranslationKey(Reference.MOD_ID + ":" + fluidBlock.getFluid().getUnlocalizedName());
+				block.setTranslationKey(Reference.MOD_ID + "." + fluidBlock.getFluid().getUnlocalizedName());
 				block.setCreativeTab(ModularBosses.tabBlocks);
 				registry.register(block);
 			}

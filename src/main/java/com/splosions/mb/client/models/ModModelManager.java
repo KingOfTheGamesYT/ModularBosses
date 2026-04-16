@@ -35,19 +35,22 @@ public class ModModelManager {
 		ModFluids.MOD_FLUID_BLOCKS.forEach(this::registerFluidModel);
 	}
 
-	private void registerFluidModel(IFluidBlock fluidBlock) {
-		Item item = Item.getItemFromBlock((Block) fluidBlock);
-		ModelBakery.registerItemVariants(item);
+    private void registerFluidModel(IFluidBlock fluidBlock) {
+        Item item = Item.getItemFromBlock((Block) fluidBlock);
+        ModelBakery.registerItemVariants(item);
 
-		final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(FLUID_MODEL_PATH, fluidBlock.getFluid().getName());
+        // Forge fluid model
+        final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(
+                "forge:fluid", "fluid=" + fluidBlock.getFluid().getName()
+        );
 
-		ModelLoader.setCustomMeshDefinition(item, MeshDefinitionFix.create(stack -> modelResourceLocation));
+        ModelLoader.setCustomMeshDefinition(item, stack -> modelResourceLocation);
 
-		ModelLoader.setCustomStateMapper((Block) fluidBlock, new StateMapperBase() {
-			@Override
-			protected ModelResourceLocation getModelResourceLocation(IBlockState p_178132_1_) {
-				return modelResourceLocation;
-			}
-		});
-	}
+        ModelLoader.setCustomStateMapper((Block) fluidBlock, new StateMapperBase() {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                return modelResourceLocation;
+            }
+        });
+    }
 }

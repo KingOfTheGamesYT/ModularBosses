@@ -6,12 +6,10 @@ import com.splosions.mb.ModularBosses;
 import com.splosions.mb.Reference;
 import com.splosions.mb.items.ModularBossesItems;
 import com.splosions.mb.util.IHasModel;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.BlockRenderLayer;

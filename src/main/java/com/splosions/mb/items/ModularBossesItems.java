@@ -1,12 +1,7 @@
 package com.splosions.mb.items;
 
-
-import com.splosions.mb.ModularBosses;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
